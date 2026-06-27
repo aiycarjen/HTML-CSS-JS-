@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>เรียนโค้ด HTML · CSS · JS</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: sans-serif;
+        background: #f5f5f5;
+        color: #222;
+        min-height: 100vh;
+      }
+      .app {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #6c63ff;
+        margin-bottom: 4px;
+      }
+      .sub {
+        font-size: 14px;
+        color: #888;
+      }
+      .xp-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 4px;
+      }
+      .xp-label {
+        font-size: 13px;
+        color: #555;
+      }
+      .streak {
+        font-size: 13px;
+        color: #ff6584;
+        font-weight: 600;
+      }
+      .progress-bar {
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 100px;
+        margin-bottom: 1.2rem;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: #6c63ff;
+        border-radius: 100px;
+        transition: width 0.4s;
+      }
+      .level-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 1rem;
+      }
+      .level-badge {
+        background: #6c63ff;
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 1.25rem;
+        background: #fff;
+        padding: 4px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+      }
+      .tab {
+        flex: 1;
+        padding: 9px 4px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 7px;
+        color: #888;
+        border: none;
+        background: transparent;
+        transition: all 0.18s;
+      }
+      .tab.active {
+        background: #6c63ff;
+        color: #fff;
+      }
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 14px;
+        padding: 1.1rem 1.25rem;
+        margin-bottom: 14px;
+      }
+      .lesson-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 6px;
+      }
+      .lesson-desc {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.65;
+        margin-bottom: 10px;
+      }
+      .code-block {
+        background: #1e1e2e;
+        color: #cdd6f4;
+        border-radius: 8px;
+        padding: 14px;
+        font-family: monospace;
+        font-size: 12px;
+        line-height: 1.75;
+        margin-bottom: 10px;
+        overflow-x: auto;
+        white-space: pre;
+      }
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .badge-html {
+        background: #fff0f0;
+        color: #e53e3e;
+      }
+      .badge-css {
+        background: #ebf8ff;
+        color: #2b6cb0;
+      }
+      .badge-js {
+        background: #fffff0;
+        color: #b7791f;
+      }
+      .tip-box {
+        background: #fffbeb;
+        border-left: 3px solid #ffb347;
+        padding: 8px 12px;
+        font-size: 12px;
+        color: #7b5e00;
+        margin-bottom: 10px;
+        border-radius: 0 6px 6px 0;
+        line-height: 1.5;
+      }
+      .btn {
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1.5px solid #ddd;
+        background: #fff;
+        color: #333;
+        transition: all 0.15s;
+      }
+      .btn:hover {
+        background: #f5f5f5;
+      }
+      .btn-primary {
+        background: #6c63ff;
+        color: #fff;
+        border-color: #6c63ff;
+      }
+      .btn-primary:hover {
+        background: #5a52e0;
+      }
+      .quiz-q {
+        font-size: 15px;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 14px;
+        line-height: 1.55;
+      }
+      .quiz-opts {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .opt {
+        padding: 11px 15px;
+        border: 1.5px solid #ddd;
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #333;
+        background: #fff;
+        text-align: left;
+        transition: all 0.15s;
+      }
+      .opt:hover {
+        background: #f5f0ff;
+        border-color: #6c63ff;
+      }
+      .opt.correct {
+        background: #f0fff4;
+        border-color: #38a169;
+        color: #276749;
+      }
+      .opt.wrong {
+        background: #fff5f5;
+        border-color: #e53e3e;
+        color: #c53030;
+      }
+      .feedback {
+        font-size: 13px;
+        padding: 9px 13px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+      .feedback.good {
+        background: #f0fff4;
+        color: #276749;
+        border: 1px solid #c6f6d5;
+      }
+      .feedback.bad {
+        background: #fff5f5;
+        color: #c53030;
+        border: 1px solid #fed7d7;
+      }
+      .feedback.hint {
+        background: #fffbeb;
+        color: #7b5e00;
+        border: 1px solid #fbd38d;
+      }
+      .stars {
+        color: #ffb347;
+        font-size: 18px;
+        letter-spacing: 2px;
+      }
+      textarea.code-editor {
+        width: 100%;
+        min-height: 200px;
+        background: #1e1e2e;
+        color: #cdd6f4;
+        border: 1px solid #444;
+        border-radius: 8px;
+        padding: 12px;
+        font-family: monospace;
+        font-size: 12px;
+        line-height: 1.75;
+        resize: vertical;
+        outline: none;
+      }
+      .editor-label {
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      .preview-box {
+        width: 100%;
+        height: 180px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: #fff;
+        margin-top: 4px;
+      }
+      .mission-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .mission-row:last-child {
+        border-bottom: none;
+      }
+      .mission-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
+        background: #f0f0f0;
+      }
+      .mission-done .mission-icon {
+        background: #f0fff4;
+      }
+      .mission-text {
+        flex: 1;
+        font-size: 13px;
+        color: #333;
+      }
+      .mission-xp {
+        font-size: 12px;
+        color: #6c63ff;
+        font-weight: 700;
+      }
+      .road-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+      .road-circle {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #6c63ff;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 9999;
+        animation: fadeOut 2.2s forwards;
+        pointer-events: none;
+      }
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        75% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-12px);
+        }
+      }
+      @media (max-width: 480px) {
+        .title {
+          font-size: 20px;
+        }
+        .tabs {
+          gap: 2px;
+        }
+        .tab {
+          font-size: 12px;
+          padding: 8px 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <div class="title">🚀 เรียนโค้ด HTML · CSS · JS</div>
+        <div class="sub">เรียนสนุก มีแบบทดสอบ + สะสม XP ได้เลย</div>
+      </div>
+
+      <div class="level-row">
+        <div class="level-badge" id="lvl-text">Level 1 — มือใหม่ ⚡</div>
+        <div class="streak" id="streak-text">🔥 0 XP วันนี้</div>
+      </div>
+      <div class="xp-row">
+        <span class="xp-label" id="xp-label">XP: 0 / 100</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="xp-fill" style="width: 0%"></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showSection('lessons', this)">
+          📖 เรียน
+        </button>
+        <button class="tab" onclick="showSection('quiz', this)">
+          ❓ ทดสอบ
+        </button>
+        <button class="tab" onclick="showSection('editor', this)">
+          💻 เขียนโค้ด
+        </button>
+        <button class="tab" onclick="showSection('missions', this)">
+          🏆 ภารกิจ
+        </button>
+      </div>
+
+      <!-- LESSONS -->
+      <div class="section active" id="sec-lessons">
+        <div class="card">
+          <span class="badge badge-html">HTML</span>
+          <div class="lesson-title">บทที่ 1 — โครงสร้างพื้นฐาน HTML</div>
+          <div class="lesson-desc">
+            HTML คือโครงสร้างของหน้าเว็บ เหมือนกระดูก ทุก element ถูกห่อด้วย tag
+            เปิด-ปิด
+          </div>
+          <div class="code-block">
+            &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt;
+            &lt;title&gt;หน้าเว็บแรกของฉัน&lt;/title&gt; &lt;/head&gt;
+            &lt;body&gt; &lt;h1&gt;สวัสดีโลก!&lt;/h1&gt;
+            &lt;p&gt;นี่คือย่อหน้าแรก&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;
+          </div>
+          <div class="tip-box">
+            💡 จำง่ายๆ: tag ทุกตัวต้องมีปิด — เปิด &lt;p&gt; ต้องมี &lt;/p&gt;
+            เสมอ
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="earnXP(15, 'เรียน HTML พื้นฐาน')"
+          >
+            ✓ เรียนแล้ว +15 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-html">HTML</span>
+          <div class="lesson-title">บทที่ 2 — Tag ที่ใช้บ่อย</div>
+          <div class="lesson-desc">
+            Tag สำคัญที่ต้องรู้จัก ได้แก่ heading, link, image, list
+          </div>
+          <div class="code-block">
+            &lt;!-- Heading h1-h6 --&gt; &lt;h1&gt;หัวข้อใหญ่&lt;/h1&gt;
+            &lt;h2&gt;หัวข้อรอง&lt;/h2&gt; &lt;!-- Link --&gt; &lt;a
+            href="https://google.com"&gt;ไป Google&lt;/a&gt; &lt;!-- รูปภาพ
+            --&gt; &lt;img src="photo.jpg" alt="คำอธิบายรูป"&gt; &lt;!-- รายการ
+            --&gt; &lt;ul&gt; &lt;li&gt;รายการที่ 1&lt;/li&gt;
+            &lt;li&gt;รายการที่ 2&lt;/li&gt; &lt;/ul&gt;
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="earnXP(15, 'เรียน HTML Tag')"
+          >
+            ✓ เรียนแล้ว +15 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-css">CSS</span>
+          <div class="lesson-title">บทที่ 3 — CSS คืออะไร?</div>
+          <div class="lesson-desc">
+            CSS ทำให้หน้าเว็บสวยงาม — สี, ขนาด, ฟอนต์, ระยะห่าง ทุกอย่างคือ CSS
+          </div>
+          <div class="code-block">
+            h1 { color: #6C63FF; font-size: 32px; text-align: center; } p {
+            color: gray; line-height: 1.6; } .highlight { background: yellow;
+            padding: 4px 8px; }
+          </div>
+          <button class="btn btn-primary" onclick="earnXP(20, 'เรียน CSS')">
+            ✓ เรียนแล้ว +20 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-css">CSS</span>
+          <div class="lesson-title">บทที่ 4 — CSS Box Model</div>
+          <div class="lesson-desc">
+            ทุก element มี margin, border, padding และ content —
+            นี่คือหัวใจของการจัดวาง
+          </div>
+          <div class="code-block">
+            .box { width: 200px; height: 100px; padding: 16px; border: 2px solid
+            #333; margin: 20px; background: #f0f0f0; border-radius: 8px; }
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="earnXP(20, 'เรียน Box Model')"
+          >
+            ✓ เรียนแล้ว +20 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-css">CSS</span>
+          <div class="lesson-title">บทที่ 5 — CSS Flexbox</div>
+          <div class="lesson-desc">
+            Flexbox ใช้จัดวาง element แนวนอน/แนวตั้ง ง่ายและยืดหยุ่นมาก
+          </div>
+          <div class="code-block">
+            .container { display: flex; justify-content: center; /* แนวนอน */
+            align-items: center; /* แนวตั้ง */ gap: 16px; /* ระยะห่าง */
+            flex-wrap: wrap; /* ตัดบรรทัด */ } .item { flex: 1; /* ขยายเต็มที่
+            */ }
+          </div>
+          <button class="btn btn-primary" onclick="earnXP(20, 'เรียน Flexbox')">
+            ✓ เรียนแล้ว +20 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-css">CSS</span>
+          <div class="lesson-title">บทที่ 6 — CSS Grid</div>
+          <div class="lesson-desc">
+            Grid ใช้จัดวางแบบตาราง เหมาะทำ layout หน้าเว็บทั้งหน้า
+          </div>
+          <div class="code-block">
+            .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap:
+            16px; } /* responsive */ @media (max-width: 600px) { .grid {
+            grid-template-columns: 1fr; } }
+          </div>
+          <button class="btn btn-primary" onclick="earnXP(20, 'เรียน Grid')">
+            ✓ เรียนแล้ว +20 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-js">JavaScript</span>
+          <div class="lesson-title">บทที่ 7 — JavaScript เบื้องต้น</div>
+          <div class="lesson-desc">
+            JS ทำให้เว็บ "ทำงานได้" — กดปุ่ม, แสดงข้อความ, คำนวณ ทุกอย่างเลย
+          </div>
+          <div class="code-block">
+            let name = "สมชาย"; let age = 25; console.log("สวัสดี " + name); if
+            (age >= 18) { alert("เป็นผู้ใหญ่แล้ว!"); } function greet(n) {
+            return "สวัสดี " + n + "!"; }
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="earnXP(25, 'เรียน JavaScript')"
+          >
+            ✓ เรียนแล้ว +25 XP
+          </button>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-js">JavaScript</span>
+          <div class="lesson-title">บทที่ 8 — DOM: ควบคุมหน้าเว็บด้วย JS</div>
+          <div class="lesson-desc">
+            DOM คือการเชื่อม JS กับ HTML ทำให้เปลี่ยนข้อความ, สี หรือซ่อน
+            element ได้
+          </div>
+          <div class="code-block">
+            let title = document.getElementById("myTitle"); title.textContent =
+            "ข้อความใหม่!"; title.style.color = "red";
+            document.getElementById("myBtn") .addEventListener("click",
+            function() { alert("กดปุ่มแล้ว!"); });
+          </div>
+          <button class="btn btn-primary" onclick="earnXP(25, 'เรียน DOM')">
+            ✓ เรียนแล้ว +25 XP
+          </button>
+        </div>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="section" id="sec-quiz">
+        <div class="card" id="quiz-card">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 12px;
+            "
+          >
+            <div class="stars" id="quiz-stars">★★★☆☆</div>
+            <div style="font-size: 12px; color: #aaa" id="quiz-counter">
+              ข้อ 1/8
+            </div>
+          </div>
+          <div class="quiz-q" id="quiz-q"></div>
+          <div class="quiz-opts" id="quiz-opts"></div>
+          <div class="feedback" id="quiz-fb" style="display: none"></div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <button
+              class="btn"
+              id="quiz-next"
+              onclick="nextQuiz()"
+              style="display: none"
+            >
+              ข้อถัดไป →
+            </button>
+            <button class="btn" id="quiz-hint" onclick="showHint()">
+              💡 คำใบ้
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDITOR -->
+      <div class="section" id="sec-editor">
+        <div class="card">
+          <div class="lesson-title">🖊 ลองเขียนโค้ดด้วยตัวเอง</div>
+          <div class="lesson-desc" style="margin-bottom: 10px">
+            แก้ไขโค้ดด้านล่าง แล้วกด "รันโค้ด" เพื่อดูผลลัพธ์
+          </div>
+          <div class="tip-box">
+            📌 ลอง: เปลี่ยนสีข้อความ, แก้ข้อความ h1, หรือเพิ่ม &lt;p&gt; ใหม่
+          </div>
+          <div class="editor-label">HTML + CSS + JS</div>
+          <textarea class="code-editor" id="code-input" spellcheck="false">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: sans-serif; padding: 16px; }
+  h1 { color: #6C63FF; }
+  button {
+    padding: 8px 16px;
+    background: #6C63FF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <h1>หน้าเว็บของฉัน!</h1>
+  <p>นี่คือย่อหน้าแรก ลองแก้ข้อความดู</p>
+  <button onclick="alert('สวัสดี!')">กดฉัน</button>
+</body>
+</html></textarea
+          >
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              margin-top: 10px;
+              margin-bottom: 10px;
+              flex-wrap: wrap;
+            "
+          >
+            <button class="btn btn-primary" onclick="runCode()">
+              ▶ รันโค้ด
+            </button>
+            <button class="btn" onclick="resetCode()">↺ รีเซต</button>
+            <button class="btn" onclick="earnXP(10, 'เขียนโค้ดเอง')">
+              ✓ บันทึก +10 XP
+            </button>
+          </div>
+          <div class="editor-label">ผลลัพธ์:</div>
+          <iframe
+            id="preview"
+            class="preview-box"
+            sandbox="allow-scripts"
+          ></iframe>
+        </div>
+
+        <div class="card">
+          <div class="lesson-title">🎯 Challenge: สร้าง Profile Card</div>
+          <div class="lesson-desc">
+            สร้าง card ที่มี: ชื่อ, อายุ, งานอดิเรก และปุ่มที่กดแล้วแสดงข้อความ
+            ลองทำเองก่อนดูเฉลยนะครับ!
+          </div>
+          <div class="code-block">
+            /* ตัวอย่าง Profile Card */ .card { border: 1px solid #ddd;
+            border-radius: 12px; padding: 20px; max-width: 300px; text-align:
+            center; }
+          </div>
+        </div>
+      </div>
+
+      <!-- MISSIONS -->
+      <div class="section" id="sec-missions">
+        <div class="card">
+          <div class="lesson-title">🏆 ภารกิจประจำวัน</div>
+          <div style="margin-top: 8px" id="mission-list">
+            <div class="mission-row mission-todo" id="m1">
+              <div class="mission-icon">📖</div>
+              <div class="mission-text">เรียนบทเรียนอย่างน้อย 1 บท</div>
+              <div class="mission-xp">+15 XP</div>
+            </div>
+            <div class="mission-row mission-todo" id="m2">
+              <div class="mission-icon">❓</div>
+              <div class="mission-text">ตอบคำถาม Quiz ให้ถูก 3 ข้อ</div>
+              <div class="mission-xp">+20 XP</div>
+            </div>
+            <div class="mission-row mission-todo" id="m3">
+              <div class="mission-icon">💻</div>
+              <div class="mission-text">ลองเขียนโค้ดเองใน Editor</div>
+              <div class="mission-xp">+10 XP</div>
+            </div>
+            <div class="mission-row mission-todo" id="m4">
+              <div class="mission-icon">🔥</div>
+              <div class="mission-text">สะสม XP รวม 50+ วันนี้</div>
+              <div class="mission-xp">+30 XP</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="lesson-title">🗺️ Roadmap ของคุณ</div>
+          <div
+            style="
+              margin-top: 10px;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+            "
+          >
+            <div class="road-item">
+              <div
+                class="road-circle"
+                style="background: #f0fff4; color: #276749"
+              >
+                ✓
+              </div>
+              <div>
+                <strong>HTML พื้นฐาน</strong> — Tag, Structure, Attribute
+              </div>
+            </div>
+            <div
+              style="
+                width: 2px;
+                height: 14px;
+                background: #e0e0e0;
+                margin-left: 14px;
+              "
+            ></div>
+            <div class="road-item">
+              <div
+                class="road-circle"
+                style="background: #ebf8ff; color: #2b6cb0"
+              >
+                2
+              </div>
+              <div>
+                <strong>CSS สไตล์</strong> — Box Model, Color, Flexbox, Grid
+              </div>
+            </div>
+            <div
+              style="
+                width: 2px;
+                height: 14px;
+                background: #e0e0e0;
+                margin-left: 14px;
+              "
+            ></div>
+            <div class="road-item">
+              <div
+                class="road-circle"
+                style="background: #f5f5f5; color: #aaa; border: 1px solid #ddd"
+              >
+                3
+              </div>
+              <div style="color: #aaa">
+                <strong>JavaScript</strong> — Variables, Functions, DOM, Events
+              </div>
+            </div>
+            <div
+              style="
+                width: 2px;
+                height: 14px;
+                background: #e0e0e0;
+                margin-left: 14px;
+              "
+            ></div>
+            <div class="road-item">
+              <div
+                class="road-circle"
+                style="background: #f5f5f5; color: #aaa; border: 1px solid #ddd"
+              >
+                4
+              </div>
+              <div style="color: #aaa">
+                <strong>โปรเจกต์แรก</strong> — สร้างเว็บไซต์ส่วนตัว
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let xp = 0,
+        quizIdx = 0,
+        correctCount = 0;
+
+      const quizData = [
+        {
+          q: "tag ไหนใช้สำหรับหัวข้อใหญ่ที่สุดใน HTML?",
+          opts: ["<h6>", "<h1>", "<header>", "<title>"],
+          ans: 1,
+          hint: "เลข 1 = ใหญ่ที่สุด",
+          exp: "<h1> คือ heading ใหญ่สุด มี h1-h6 โดย h1 ใหญ่สุด h6 เล็กสุด",
+        },
+        {
+          q: "CSS property ไหนใช้เปลี่ยนสีตัวอักษร?",
+          opts: ["text-color", "font-color", "color", "background"],
+          ans: 2,
+          hint: "ชื่อสั้นมาก แค่คำเดียว",
+          exp: "ใช้ `color` เช่น color: red; หรือ color: #FF0000;",
+        },
+        {
+          q: "ถ้าต้องการลิงก์ไปหน้าอื่น ใช้ tag อะไร?",
+          opts: ["<link>", "<a>", "<url>", "<href>"],
+          ans: 1,
+          hint: "มาจากคำว่า anchor",
+          exp: "<a href='URL'> ใช้สำหรับลิงก์ href คือ attribute ที่ระบุปลายทาง",
+        },
+        {
+          q: "JavaScript ใช้ keyword อะไรประกาศตัวแปร (แบบใหม่)?",
+          opts: ["var", "let", "dim", "define"],
+          ans: 1,
+          hint: "3 ตัวอักษร",
+          exp: "ใช้ `let` สำหรับตัวแปรที่เปลี่ยนค่าได้ หรือ `const` สำหรับค่าคงที่",
+        },
+        {
+          q: "CSS Flexbox ใช้ property อะไรจัดแนวตั้ง?",
+          opts: [
+            "justify-content",
+            "align-items",
+            "vertical-align",
+            "top-align",
+          ],
+          ans: 1,
+          hint: "เกี่ยวกับการ align",
+          exp: "align-items จัดแนวตั้ง, justify-content จัดแนวนอน ใน Flexbox",
+        },
+        {
+          q: "DOM ใน JavaScript ย่อมาจากอะไร?",
+          opts: [
+            "Document Object Model",
+            "Data Object Method",
+            "Display Output Mode",
+            "Document Order Map",
+          ],
+          ans: 0,
+          hint: "D=Document O=Object M=Model",
+          exp: "DOM คือ Document Object Model — โครงสร้างที่ให้ JS เข้าถึงและแก้ไข HTML ได้",
+        },
+        {
+          q: "ใช้คำสั่งอะไรใน JS เพื่อแสดงข้อความใน console?",
+          opts: ["print()", "alert()", "console.log()", "display()"],
+          ans: 2,
+          hint: "มี console อยู่ด้วย",
+          exp: "console.log() ใช้แสดงข้อมูลใน Developer Tools เหมาะสำหรับ debug",
+        },
+        {
+          q: "HTML attribute ไหนกำหนดสไตล์ CSS ให้ element โดยตรง?",
+          opts: ["class", "id", "style", "css"],
+          ans: 2,
+          hint: "เหมือนชื่อ CSS เลย",
+          exp: "style attribute ใส่ CSS ตรงๆ เช่น <p style='color:red'> แต่ควรแยกไว้ใน .css จะดีกว่า",
+        },
+      ];
+
+      function showSection(id, btn) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.getElementById("sec-" + id).classList.add("active");
+        btn.classList.add("active");
+        if (id === "quiz") renderQuiz();
+      }
+
+      function earnXP(amt, label) {
+        xp += amt;
+        updateXP();
+        checkMissions();
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.textContent = "+" + amt + " XP — " + label + "!";
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2300);
+      }
+
+      function updateXP() {
+        const level = Math.floor(xp / 100) + 1;
+        const pct = xp % 100;
+        document.getElementById("xp-fill").style.width = pct + "%";
+        document.getElementById("xp-label").textContent =
+          "XP: " + xp + " / " + level * 100;
+        const names = [
+          "มือใหม่",
+          "ผู้เรียน",
+          "นักพัฒนา",
+          "ผู้เชี่ยวชาญ",
+          "ปรมาจารย์",
+        ];
+        document.getElementById("lvl-text").textContent =
+          "Level " + level + " — " + names[Math.min(level - 1, 4)] + " ⚡";
+        document.getElementById("streak-text").textContent =
+          "🔥 " + xp + " XP วันนี้";
+        if (xp >= 50) {
+          const m4 = document.getElementById("m4");
+          m4.className = "mission-row mission-done";
+          m4.querySelector(".mission-icon").textContent = "✅";
+        }
+      }
+
+      function checkMissions() {
+        if (xp > 0) {
+          const m1 = document.getElementById("m1");
+          m1.className = "mission-row mission-done";
+          m1.querySelector(".mission-icon").textContent = "✅";
+        }
+        if (correctCount >= 3) {
+          const m2 = document.getElementById("m2");
+          m2.className = "mission-row mission-done";
+          m2.querySelector(".mission-icon").textContent = "✅";
+        }
+      }
+
+      function renderQuiz() {
+        if (quizIdx >= quizData.length) {
+          document.getElementById("quiz-card").innerHTML =
+            '<div style="text-align:center;padding:1.5rem"><div style="font-size:40px;margin-bottom:8px">🎉</div><div style="font-size:17px;font-weight:700;margin-bottom:4px">Quiz เสร็จแล้ว!</div><div style="font-size:13px;color:#888;margin-bottom:14px">ตอบถูก ' +
+            correctCount +
+            "/" +
+            quizData.length +
+            ' ข้อ</div><button class="btn btn-primary" onclick="quizIdx=0;correctCount=0;renderQuiz()">เล่นใหม่</button></div>';
+          return;
+        }
+        const q = quizData[quizIdx];
+        document.getElementById("quiz-q").textContent = q.q;
+        document.getElementById("quiz-counter").textContent =
+          "ข้อ " + (quizIdx + 1) + "/" + quizData.length;
+        const stars =
+          "★".repeat(Math.min(quizIdx + 1, 5)) +
+          "☆".repeat(Math.max(0, 5 - quizIdx - 1));
+        document.getElementById("quiz-stars").textContent = stars;
+        const optsEl = document.getElementById("quiz-opts");
+        optsEl.innerHTML = "";
+        q.opts.forEach((o, i) => {
+          const btn = document.createElement("button");
+          btn.className = "opt";
+          btn.textContent = o;
+          btn.onclick = () => selectOpt(i, q.ans, q.exp);
+          optsEl.appendChild(btn);
+        });
+        document.getElementById("quiz-fb").style.display = "none";
+        document.getElementById("quiz-next").style.display = "none";
+        document.getElementById("quiz-hint").style.display = "inline-block";
+      }
+
+      function selectOpt(i, ans, exp) {
+        document.querySelectorAll(".opt").forEach((o) => (o.onclick = null));
+        const fb = document.getElementById("quiz-fb");
+        if (i === ans) {
+          document.querySelectorAll(".opt")[i].classList.add("correct");
+          fb.className = "feedback good";
+          fb.textContent = "✓ ถูกต้อง! " + exp;
+          correctCount++;
+          earnXP(20, "ตอบถูก Quiz");
+          checkMissions();
+        } else {
+          document.querySelectorAll(".opt")[i].classList.add("wrong");
+          document.querySelectorAll(".opt")[ans].classList.add("correct");
+          fb.className = "feedback bad";
+          fb.textContent = "✗ ผิด — " + exp;
+        }
+        fb.style.display = "block";
+        document.getElementById("quiz-next").style.display = "inline-block";
+        document.getElementById("quiz-hint").style.display = "none";
+      }
+
+      function nextQuiz() {
+        quizIdx++;
+        renderQuiz();
+      }
+
+      function showHint() {
+        const q = quizData[quizIdx];
+        const fb = document.getElementById("quiz-fb");
+        fb.className = "feedback hint";
+        fb.style.display = "block";
+        fb.textContent = "💡 คำใบ้: " + q.hint;
+      }
+
+      const defaultCode = document.getElementById("code-input").value;
+
+      function runCode() {
+        const code = document.getElementById("code-input").value;
+        document.getElementById("preview").srcdoc = code;
+        earnXP(5, "รันโค้ด");
+        const m3 = document.getElementById("m3");
+        m3.className = "mission-row mission-done";
+        m3.querySelector(".mission-icon").textContent = "✅";
+      }
+
+      function resetCode() {
+        document.getElementById("code-input").value = defaultCode;
+        document.getElementById("preview").srcdoc = "";
+      }
+
+      renderQuiz();
+    </script>
+  </body>
+</html>
